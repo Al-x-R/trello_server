@@ -1,8 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import { Error } from 'mongoose';
 import jwt from 'jsonwebtoken';
+
 import UserModel from '../models/user';
 import { UserDocument } from '../types/user.interface';
+import { ExpressRequestInterface } from '../types/expressRequest.interface';
 
 const normalizeUser = (user: UserDocument) => {
   const secret = process.env.TOKEN_SECRET as string;
@@ -58,4 +60,11 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
   } catch (err) {
     next(err);
   }
+};
+
+export const currentUser = (req: ExpressRequestInterface, res: Response) => {
+  if (!req.user) {
+    return res.sendStatus(401);
+  }
+  res.send(normalizeUser(req.user));
 };

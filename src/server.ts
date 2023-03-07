@@ -7,6 +7,7 @@ import { Server } from 'socket.io';
 import mongoose from 'mongoose';
 
 import * as usersController from './controllers/users';
+import authMiddleware from './middlewares/auth';
 
 const app = express();
 const httpServer = createServer(app);
@@ -20,6 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/api/users/register', usersController.register);
 app.post('/api/users/login', usersController.login);
+app.get('/api/user', authMiddleware, usersController.currentUser);
 
 app.get('/', (req, res) => {
   res.send('API is UP');
