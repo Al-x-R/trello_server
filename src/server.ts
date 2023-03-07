@@ -19,6 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/api/users/register', usersController.register);
+app.post('/api/users/login', usersController.login);
 
 app.get('/', (req, res) => {
   res.send('API is UP');
