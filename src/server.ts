@@ -5,6 +5,7 @@ import { createServer } from 'http';
 import bodyParser from 'body-parser';
 import { Server } from 'socket.io';
 import mongoose from 'mongoose';
+import cors from 'cors';
 
 import * as usersController from './controllers/users';
 import authMiddleware from './middlewares/auth';
@@ -16,6 +17,7 @@ const io = new Server(httpServer);
 const connectionString = process.env.ATLAS_URI || '';
 const port = process.env.PORT || 5000;
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
