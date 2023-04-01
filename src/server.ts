@@ -30,11 +30,13 @@ mongoose.set('toJSON', {
   },
 });
 
+// user
 app.post('/api/users/register', usersController.register);
 app.post('/api/users/login', usersController.login);
 app.get('/api/user', authMiddleware, usersController.currentUser);
-
+// boards
 app.get('/api/boards', authMiddleware, boardsController.getBoards);
+app.post('/api/boards', authMiddleware, boardsController.createBoard);
 
 app.get('/', (req, res) => {
   res.send('API is UP');
