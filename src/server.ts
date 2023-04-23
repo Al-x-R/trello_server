@@ -53,7 +53,9 @@ io.on('connection', (socket) => {
   socket.on(SocketEventsEnum.boardsJoin, (data) => {
     boardsController.joinBoard(io, socket, data);
   });
-  console.log('socket connect');
+  socket.on(SocketEventsEnum.boardsLeave, (data) => {
+    boardsController.leaveBoard(io, socket, data);
+  });
 });
 
 mongoose.connect(connectionString).then(() => {
