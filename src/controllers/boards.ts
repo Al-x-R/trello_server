@@ -1,4 +1,6 @@
 import { Response, NextFunction } from 'express';
+import { Server, Socket } from 'socket.io';
+
 import { ExpressRequestInterface } from '../types/expressRequest.interface';
 
 import BoardModel from '../models/board';
@@ -53,4 +55,9 @@ export const createBoard = async (
   } catch (err) {
     next(err);
   }
+};
+
+export const joinBoard = (io: Server, socket: Socket, data: { boardId: string }) => {
+  socket.join(data.boardId);
+  console.log('server socket io join', data.boardId);
 };

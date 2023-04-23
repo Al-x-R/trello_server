@@ -1,3 +1,5 @@
+import { SocketEventsEnum } from './types/socketEvents.enum';
+
 require('dotenv').config();
 
 import express from 'express';
@@ -47,7 +49,10 @@ app.get('/', (req, res) => {
   res.send('API is UP');
 });
 
-io.on('connection', () => {
+io.on('connection', (socket) => {
+  socket.on(SocketEventsEnum.boardsJoin, (data) => {
+    boardsController.joinBoard(io, socket, data);
+  });
   console.log('socket connect');
 });
 
