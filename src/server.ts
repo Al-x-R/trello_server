@@ -14,7 +14,11 @@ import authMiddleware from './middlewares/auth';
 
 const app = express();
 const httpServer = createServer(app);
-const io = new Server(httpServer);
+const io = new Server(httpServer, {
+  cors: {
+    origin: '*'
+  }
+});
 
 const connectionString = process.env.ATLAS_URI || '';
 const port = process.env.PORT || 5000;
